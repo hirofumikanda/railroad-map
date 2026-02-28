@@ -1,0 +1,156 @@
+{
+  "version": 8,
+  "sources": {
+    "railroad": {
+      "type": "vector",
+      "url": "pmtiles:///railroad-map/data/railroad.pmtiles",
+      "attribution": "<a href=\"https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-N02-2024.html\" target=\"_blank\">国土数値情報（鉄道データ）</a>を加工して作成",
+      "minzoom": 5,
+      "maxzoom": 14
+    },
+    "station": {
+      "type": "vector",
+      "url": "pmtiles:///railroad-map/data/station.pmtiles",
+      "attribution": "<a href=\"https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-N02-2024.html\" target=\"_blank\">国土数値情報（鉄道データ）</a>を加工して作成",
+      "minzoom": 5,
+      "maxzoom": 14
+    }
+  },
+  "glyphs": "fonts/{fontstack}/{range}.pbf",
+  "layers": [
+    {
+      "id": "background",
+      "type": "background",
+      "paint": {
+        "background-color": "rgb(244, 244, 244)"
+      }
+    },
+    {
+      "id": "railroad_other",
+      "type": "line",
+      "source": "railroad",
+      "source-layer": "railroad",
+      "minzoom": 8,
+      "filter": [
+        "all",
+        ["!=", ["get", "N02_002"], "2"],
+        ["!=", ["get", "N02_002"], "1"]
+      ],
+      "layout": { "visibility": "visible" },
+      "paint": {
+        "line-color": "rgba(136,136,136,1)",
+        "line-width": 2
+      }
+    },
+    {
+      "id": "railroad_jr_base",
+      "type": "line",
+      "source": "railroad",
+      "source-layer": "railroad",
+      "minzoom": 8,
+      "filter": ["==", ["get", "N02_002"], "2"],
+      "layout": { "visibility": "visible" },
+      "paint": {
+        "line-color": "rgba(0, 0, 0, 1)",
+        "line-width": 4
+      }
+    },
+    {
+      "id": "railroad_jr_dash",
+      "type": "line",
+      "source": "railroad",
+      "source-layer": "railroad",
+      "minzoom": 8,
+      "filter": ["==", ["get", "N02_002"], "2"],
+      "layout": { "visibility": "visible" },
+      "paint": {
+        "line-color": "rgba(255, 255, 255, 1)",
+        "line-width": 2,
+        "line-dasharray": [4, 4]
+      }
+    },
+    {
+      "id": "railroad_shinkansen_base",
+      "type": "line",
+      "source": "railroad",
+      "source-layer": "railroad",
+      "minzoom": 8,
+      "filter": ["==", ["get", "N02_002"], "1"],
+      "layout": { "visibility": "visible" },
+      "paint": {
+        "line-color": "rgba(0, 50, 150, 1)",
+        "line-width": 4
+      }
+    },
+    {
+      "id": "railroad_shinkansen_dash",
+      "type": "line",
+      "source": "railroad",
+      "source-layer": "railroad",
+      "minzoom": 8,
+      "filter": ["==", ["get", "N02_002"], "1"],
+      "layout": { "visibility": "visible" },
+      "paint": {
+        "line-color": "rgba(255, 255, 255, 1)",
+        "line-width": 2,
+        "line-dasharray": [4, 4]
+      }
+    },
+    {
+      "id": "railroad_labels",
+      "type": "symbol",
+      "source": "railroad",
+      "source-layer": "railroad",
+      "minzoom": 10,
+      "layout": {
+        "text-field": ["get", "N02_003"],
+        "text-font": ["Noto Sans JP Regular"],
+        "text-size": 10,
+        "symbol-placement": "line",
+        "text-rotation-alignment": "map",
+        "text-pitch-alignment": "viewport",
+        "text-max-angle": 45,
+        "symbol-spacing": 300,
+        "text-optional": true,
+        "text-allow-overlap": false,
+        "text-ignore-placement": false
+      },
+      "paint": {
+        "text-color": [
+          "case",
+          ["==", ["get", "N02_002"], "1"],
+          "#003296",
+          ["==", ["get", "N02_002"], "2"],
+          "#000000",
+          "#555555"
+        ],
+        "text-halo-color": "#ffffff",
+        "text-halo-width": 2
+      }
+    },
+    {
+      "id": "station",
+      "type": "symbol",
+      "source": "station",
+      "source-layer": "station",
+      "minzoom": 12,
+      "layout": {
+        "text-field": ["get", "name"],
+        "text-font": ["Noto Sans JP Regular"],
+        "text-size": 12,
+        "text-variable-anchor": ["top", "right", "bottom", "left"],
+        "text-justify": "auto",
+        "text-radial-offset": 1,
+        "text-optional": true,
+        "text-rotation-alignment": "viewport",
+        "icon-image": "square",
+        "icon-size": 1,
+        "icon-rotation-alignment": "viewport",
+        "icon-text-fit": "both"
+      },
+      "paint": {
+        "text-color": "#333"
+      }
+    }
+  ]
+}
