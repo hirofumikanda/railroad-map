@@ -17,8 +17,6 @@
   },
   "dependencies": {
     "maplibre-gl": "^4.3.2",
-    "maplibre-gl-gsi-terrain": "^1.2.0",
-    "maplibre-gl-opacity": "^1.7.0",
     "pmtiles": "^4.3.2"
   }
 }
